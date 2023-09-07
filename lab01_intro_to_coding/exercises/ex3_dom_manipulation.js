@@ -15,56 +15,57 @@
 // Delete the div with the class rectangle from index.html and refresh the preview.
 
 // Task
-// What does the following code do? s
+// What does the following code do? 
 // selects 'viz' and 'button' elements, log information about 'viz', and defines 'addChildToViz' function
 //the overall purpose seems to interact with specific things on the DOM
 const viz = document.body.querySelector(".viz");
 const button = document.body.querySelector("#button");
 
+
 console.log(viz, viz.children);
 
-const addChildToViz = () => {
+const addChildToViz = (data) => {
   const newChild = document.createElement("div");
   newChild.className = "rectangle";
-  newChild.style.height = Math.random() * 100 + "px";
+  newChild.style.height = data.petallength * 20 + "px"; // Adjust the scaling as needed
   viz.appendChild(newChild);
 };
-
 // Task
 // Modify index.html to make this event listener work
-button.addEventListener("click", addChildToViz);
-{/* <script>
-const button = document.querySelector("#button");
-
-const addChildToViz = () => {
-  const viz = document.querySelector(".viz");
-  const newChild = document.createElement("div");
-  newChild.className = "rectangle";
-  newChild.style.height = Math.random() * 100 + "px";
-  viz.appendChild(newChild);
-};
-
-button.addEventListener("click", addChildToViz);
-</script>
-</body>
-</html> */}
-
-
-// Task
 // Where can you see the results of the console.log below? How is it different from in previous exercises?
 // the dev console in a browser, it is differnt because its ocming from a 'fetch' api 
-function drawIrisData() {
-  window
-    .fetch("./iris_json.json")
-    .then(data => data.json())
-    .then(data => {
-      console.log(data);
-    });
-}
-
-drawIrisData();
+//
+// ////////////////////////////////////////
+//
+//button.addEventListener("click", addChildToViz); 
+//function drawIrisData() {
+//   window
+//     .fetch("./iris_json.json")
+//     .then(data => data.json())
+//     .then(data => {
+//       console.log(data);
+//     });
+// }
+//
+// drawIrisData();
+//
+////////////////////////////////////////
 
 // Task
 // Modify the code above to visualize the Iris dataset in the preview of index.html.
 // Feel free to add additional CSS properties in index.html, or using JavaScript, as you see fit.
 
+
+
+button.addEventListener("click", () => {
+  // Fetch and visualize Iris data
+  window
+    .fetch("./iris_json.json")
+    .then((data) => data.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((item) => {
+        addChildToViz(item);
+      });
+    });
+});
